@@ -1,0 +1,266 @@
+:root {
+  --bg: #050505;
+  --panel: #0c0c0c;
+  --muted: #9b9b9b;
+  --accent: #fff;
+  --glass: rgba(255, 255, 255, 0.06);
+  --chip-bg: rgba(255, 255, 255, 0.05);
+  --chip-border: rgba(255, 255, 255, 0.12);
+  --radius: 12px;
+  --shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  font-synthesis: none;
+}
+
+/* Basic reset */
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--accent);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+
+/* Container centers everything */
+.stage {
+  width: 100%;
+  max-width: 980px;
+  text-align: center;
+  position: relative;
+  padding: 48px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  animation: fadeUp 0.45s ease both;
+}
+
+/* top small label */
+.top-label {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 12px;
+  font-size: 13px;
+  color: var(--muted);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: transparent;
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+.top-label::before {
+  content: "+";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  color: var(--muted);
+  text-align: center;
+  line-height: 18px;
+  font-weight: 600;
+}
+
+/* Central panel */
+.panel {
+  width: 100%;
+  max-width: 720px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.01)
+  );
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+}
+
+/* speech bubble small */
+.bubble {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+  font-size: 13px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  max-width: 260px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+
+/* empty image placeholder - preserved space but hidden since user wanted no image */
+.art-space {
+  width: 160px;
+  height: 140px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.06;
+  color: var(--muted);
+  font-size: 12px;
+  user-select: none;
+  /* kept tiny glow to mimic original layout spacing */
+  margin: 6px 0 2px;
+}
+
+/* The input wrapper to mimic outlined rounded */
+.input-wrap {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  position: relative;
+}
+
+input.text {
+  flex: 1;
+  padding: 14px 16px;
+  background: transparent;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  outline: none;
+  color: var(--accent);
+  font-size: 15px;
+  box-shadow: inset 0 -6px 20px rgba(0, 0, 0, 0.6);
+  transition: box-shadow 0.18s ease, border-color 0.18s ease,
+    transform 0.12s ease;
+}
+input.text::placeholder {
+  color: var(--muted);
+  opacity: 0.9;
+}
+
+input.text:focus {
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
+}
+
+/* chip buttons group */
+.chips {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: 6px;
+}
+
+.chip {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--chip-bg);
+  border-radius: 999px;
+  border: 1px solid var(--chip-border);
+  font-size: 14px;
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.12s ease, background 0.12s ease, box-shadow 0.12s ease;
+}
+.chip:hover {
+  transform: translateY(-4px);
+}
+.chip.active {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.04)
+  );
+  color: var(--accent);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+/* paste button on right of input */
+.btn-paste {
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--chip-bg);
+  border: 1px solid var(--chip-border);
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--muted);
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+.btn-paste:hover {
+  transform: translateY(-3px);
+}
+
+/* bottom small footer text */
+.footer {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 6px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+}
+.footer a {
+  color: var(--muted);
+  text-decoration: underline;
+  opacity: 0.9;
+}
+
+/* Responsive rules */
+@media (max-width: 640px) {
+  .panel {
+    padding: 20px;
+  }
+  .art-space {
+    width: 120px;
+    height: 110px;
+  }
+  input.text {
+    font-size: 14px;
+    padding: 12px 14px;
+  }
+  .chips {
+    gap: 8px;
+  }
+}
+
+/* small animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* subtle focus ring for keyboard users */
+input.text:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.04);
+  outline-offset: 4px;
+}
